@@ -1,4 +1,4 @@
-import { Check, ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
+import { Check, ArrowRight, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
@@ -6,12 +6,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState } from "react";
 import CalendlyModal from "@/components/CalendlyModal";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "@/hooks/use-toast";
+import StripeCheckoutModal from "@/components/StripeCheckoutModal";
 
 const Tarifs = () => {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
-  const [loadingProduct, setLoadingProduct] = useState<string | null>(null);
+  const [isStripeOpen, setIsStripeOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
 
   const packs = [
     {
@@ -115,28 +115,9 @@ const Tarifs = () => {
     },
   ];
 
-  const handleStripePayment = async (productKey: string) => {
-    setLoadingProduct(productKey);
-    try {
-      const { data, error } = await supabase.functions.invoke('create-payment', {
-        body: { productKey },
-      });
-
-      if (error) throw error;
-
-      if (data?.url) {
-        window.open(data.url, '_blank');
-      }
-    } catch (error) {
-      console.error('Payment error:', error);
-      toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de la création du paiement. Veuillez réessayer.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoadingProduct(null);
-    }
+  const handleStripePayment = (productKey: string) => {
+    setSelectedProduct(productKey);
+    setIsStripeOpen(true);
   };
 
   return (
@@ -211,20 +192,10 @@ const Tarifs = () => {
                     </div>
                     <Button
                       onClick={() => pack.cta === "stripe" ? handleStripePayment(pack.productKey) : setIsCalendlyOpen(true)}
-                      disabled={loadingProduct === pack.productKey}
                       className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                     >
-                      {loadingProduct === pack.productKey ? (
-                        <>
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          Chargement...
-                        </>
-                      ) : (
-                        <>
-                          Commander maintenant
-                          <ArrowRight className="ml-2 w-4 h-4" />
-                        </>
-                      )}
+                      Commander maintenant
+                      <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
                   </CardContent>
                 </Card>
@@ -290,6 +261,11 @@ const Tarifs = () => {
 
       <Footer />
       <CalendlyModal open={isCalendlyOpen} onOpenChange={setIsCalendlyOpen} />
+      <StripeCheckoutModal 
+        open={isStripeOpen} 
+        onOpenChange={setIsStripeOpen} 
+        productKey={selectedProduct} 
+      />
     </div>
   );
 };

@@ -43,7 +43,7 @@ serve(async (req) => {
       }
     }
 
-    // Create a one-time payment session
+    // Create a one-time payment session with embedded checkout
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       customer_email: customerId ? undefined : customerEmail,
@@ -54,11 +54,11 @@ serve(async (req) => {
         },
       ],
       mode: "payment",
-      success_url: `${req.headers.get("origin")}/paiement-reussi`,
-      cancel_url: `${req.headers.get("origin")}/tarifs`,
+      ui_mode: "embedded",
+      return_url: `${req.headers.get("origin")}/paiement-reussi?session_id={CHECKOUT_SESSION_ID}`,
     });
 
-    return new Response(JSON.stringify({ url: session.url }), {
+    return new Response(JSON.stringify({ clientSecret: session.client_secret }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
     });
