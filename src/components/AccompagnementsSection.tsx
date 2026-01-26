@@ -1,11 +1,13 @@
 import { FileText, Award, BookOpen, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState } from "react";
+import CalendlyModal from "./CalendlyModal";
+import useScrollAnimation from "@/hooks/useScrollAnimation";
 
 const AccompagnementsSection = () => {
-  const openCalendly = () => {
-    window.open("https://calendly.com/av-assistas/audit-de-ton-business", "_blank");
-  };
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+  const { ref, isVisible } = useScrollAnimation();
 
   const accompagnements = [
     {
@@ -53,9 +55,13 @@ const AccompagnementsSection = () => {
   return (
     <section id="accompagnements" className="py-20 bg-background">
       <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto" ref={ref}>
           {/* Header */}
-          <div className="text-center mb-16">
+          <div
+            className={`text-center mb-16 transition-all duration-700 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
             <span className="text-primary font-subheading font-medium text-sm uppercase tracking-wider">
               Prestations
             </span>
@@ -72,7 +78,10 @@ const AccompagnementsSection = () => {
             {accompagnements.map((item, index) => (
               <Card
                 key={index}
-                className={`border-l-4 ${item.color} hover:shadow-lg transition-shadow group`}
+                className={`border-l-4 ${item.color} hover:shadow-lg transition-all duration-700 group ${
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                }`}
+                style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <CardHeader>
                   <div className="flex items-start gap-4">
@@ -103,7 +112,7 @@ const AccompagnementsSection = () => {
                     </p>
                   </div>
                   <Button
-                    onClick={openCalendly}
+                    onClick={() => setIsCalendlyOpen(true)}
                     variant="outline"
                     className="w-full mt-4 hover:bg-primary hover:text-primary-foreground border-primary text-primary"
                   >
@@ -115,6 +124,8 @@ const AccompagnementsSection = () => {
           </div>
         </div>
       </div>
+
+      <CalendlyModal open={isCalendlyOpen} onOpenChange={setIsCalendlyOpen} />
     </section>
   );
 };

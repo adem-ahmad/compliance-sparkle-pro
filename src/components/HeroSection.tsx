@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
+import { useState } from "react";
+import CalendlyModal from "./CalendlyModal";
 
 const HeroSection = () => {
-  const openCalendly = () => {
-    window.open("https://calendly.com/av-assistas/audit-de-ton-business", "_blank");
-  };
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
   return (
     <section
@@ -42,7 +42,7 @@ const HeroSection = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-up" style={{ animationDelay: "0.3s" }}>
             <Button
-              onClick={openCalendly}
+              onClick={() => setIsCalendlyOpen(true)}
               size="lg"
               className="bg-primary text-primary-foreground hover:bg-primary/90 font-subheading font-semibold text-lg px-8 py-6 group"
             >
@@ -91,6 +91,8 @@ const HeroSection = () => {
           />
         </svg>
       </div>
+
+      <CalendlyModal open={isCalendlyOpen} onOpenChange={setIsCalendlyOpen} />
     </section>
   );
 };
