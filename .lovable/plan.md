@@ -1,220 +1,139 @@
 
-# Plan de modification complet du site Mériem Consultante Formation
+# Plan : Configuration Supabase + Stripe Embedded Checkout
 
-## Resume des modifications demandées
+## Resume
 
-Ce plan couvre 4 types de modifications :
-1. **Restructuration des sections** (suppression, déplacement)
-2. **Pop-up modale Calendly** (au lieu d'ouvrir un nouvel onglet)
-3. **Animations au scroll** (fade-in sur les sections)
-4. **Intégration Stripe** (paiements pour les packs à prix fixe)
+Ce plan couvre deux étapes principales :
+1. **Configuration de Supabase** - Activer Lovable Cloud pour utiliser les Edge Functions
+2. **Implémentation de Stripe Embedded Checkout** - Formulaire de paiement dans une modale popup
 
 ---
 
-## Partie 1 : Restructuration des sections
+## Pourquoi Supabase est nécessaire ?
 
-### 1.1 Sections à supprimer
-
-| Section | Fichier | Action |
-|---------|---------|--------|
-| "Maîtrisez votre expertise" | `ProblemeSection.tsx` | Supprimer le composant |
-| "Ma méthode" | `MethodeSection.tsx` | Supprimer le composant |
-| "Formule horaire" dans Tarifs | `TarifsSection.tsx` | Supprimer la grille des formules |
-
-### 1.2 Nouvel ordre des sections sur la page d'accueil
-
-Ordre actuel :
-```text
-Hero → Probleme → Methode → Accompagnements → Tarifs → Apropos → Temoignages → FAQ → Contact
-```
-
-Nouvel ordre :
-```text
-Hero → Apropos (avec valeurs + bloc CTA) → Accompagnements → Tarifs → Temoignages → FAQ → Contact
-```
-
-### 1.3 Modifications du composant AproposSection
-
-Ajouter le bloc "Prêt·e à structurer..." juste après la section "Les valeurs qui guident..." dans le même composant `AproposSection.tsx`.
-
-Le bloc à ajouter contient :
-- Titre : "Prêt·e à structurer votre activité de formation ?"
-- Description de l'appel découverte
-- Liste des 4 points abordés pendant l'appel
-- Bouton CTA "Réserver mon appel découverte"
-- Email de contact alternatif
+La clé secrète Stripe (`STRIPE_SECRET_KEY`) ne doit **jamais** être exposée dans le code frontend. Supabase permet de :
+- Stocker la clé secrète de manière sécurisée (elle est déjà configurée)
+- Exécuter des Edge Functions côté serveur pour créer les sessions de paiement
+- Communiquer avec Stripe sans exposer les credentials
 
 ---
 
-## Partie 2 : Pop-up modale Calendly
+## Étape 1 : Activer Lovable Cloud
 
-### Fonctionnement
-Au lieu d'ouvrir Calendly dans un nouvel onglet, une modale s'ouvrira directement sur le site avec un iframe Calendly intégré.
+Lovable Cloud fournit un backend Supabase managé sans avoir besoin de créer un compte externe.
 
-### Fichiers à créer/modifier
-
-| Fichier | Action |
-|---------|--------|
-| `src/components/CalendlyModal.tsx` | **Créer** - Composant modale avec iframe Calendly |
-| `src/components/Header.tsx` | Modifier pour utiliser la modale |
-| `src/components/HeroSection.tsx` | Modifier pour utiliser la modale |
-| `src/components/AccompagnementsSection.tsx` | Modifier pour utiliser la modale |
-| `src/components/AproposSection.tsx` | Modifier pour utiliser la modale |
-| `src/pages/Tarifs.tsx` | Modifier pour utiliser la modale |
-
-### Spécifications de la modale
-- Overlay sombre semi-transparent
-- Animation d'entrée fluide (scale + fade)
-- Bouton de fermeture visible
-- Compatible mobile (responsive)
-- Utilise Dialog de Radix UI (déjà installé)
+**Action requise** : Je vais activer Lovable Cloud pour vous (cela nécessite votre approbation).
 
 ---
 
-## Partie 3 : Animations au scroll
+## Étape 2 : Modifier l'Edge Function pour Embedded Checkout
 
-### Approche technique
-Utiliser l'API Intersection Observer pour détecter quand les sections entrent dans le viewport et déclencher des animations CSS.
+### Changements sur l'Edge Function `create-payment`
 
-### Fichiers à créer/modifier
-
-| Fichier | Action |
-|---------|--------|
-| `src/hooks/useScrollAnimation.tsx` | **Créer** - Hook custom pour l'intersection observer |
-| `src/index.css` | Ajouter les classes d'animation |
-| Tous les composants de section | Ajouter les classes d'animation |
-
-### Animations prévues
-- `animate-fade-up` : Fade in + translation vers le haut (pour les sections)
-- `animate-fade-in` : Simple fade in (pour les éléments individuels)
-- Délai progressif pour les éléments en grille
-
----
-
-## Partie 4 : Intégration Stripe
-
-### Prérequis
-- Activation de l'intégration Stripe Lovable (nécessite votre clé secrète Stripe)
-- Création des produits dans Stripe
-
-### Produits à créer
-
-| Produit | Prix | Page |
-|---------|------|------|
-| Pack NDA | 380 EUR | /tarifs |
-| Guide complet Qualiopi (ebook) | 47 EUR | /ebook |
-| Répertoires Spécifiques (ebook) | 67 EUR | /ebook |
-| Créer son organisme de formation (ebook) | 97 EUR | /ebook |
-
-### Fichiers à modifier
-
-| Fichier | Action |
-|---------|--------|
-| `src/pages/Tarifs.tsx` | Remplacer le bouton "Commander" par un checkout Stripe |
-| `src/pages/Ebook.tsx` | Ajouter les boutons de paiement Stripe |
-| `src/pages/PaymentSuccess.tsx` | **Créer** - Page de confirmation après paiement |
-| `src/App.tsx` | Ajouter la route `/paiement-reussi` |
-
----
-
-## Détails techniques
-
-### Structure finale des fichiers
+L'Edge Function actuelle retourne une URL de redirection. Pour l'Embedded Checkout, elle doit :
+- Utiliser `ui_mode: "embedded"` au lieu du mode hosted
+- Retourner `client_secret` au lieu de `url`
+- Utiliser `return_url` au lieu de `success_url`
 
 ```text
-src/
-├── components/
-│   ├── CalendlyModal.tsx (nouveau)
-│   ├── Header.tsx (modifié)
-│   ├── HeroSection.tsx (modifié)
-│   ├── AccompagnementsSection.tsx (modifié)
-│   ├── AproposSection.tsx (modifié - bloc CTA ajouté)
-│   ├── TarifsSection.tsx (modifié - formules supprimées)
-│   ├── TemoignagesSection.tsx
-│   ├── FAQSection.tsx
-│   ├── ContactSection.tsx
-│   └── Footer.tsx
-├── hooks/
-│   └── useScrollAnimation.tsx (nouveau)
-├── pages/
-│   ├── Index.tsx (modifié - ordre des sections)
-│   ├── Tarifs.tsx (modifié - Stripe + formules)
-│   ├── Ebook.tsx (modifié - Stripe)
-│   └── PaymentSuccess.tsx (nouveau)
-└── index.css (modifié - animations)
-```
+Avant (mode hosted) :
+- session = stripe.checkout.sessions.create({ mode: "payment", success_url, cancel_url })
+- Retourne : { url: session.url }
+- Frontend : window.open(url, '_blank')
 
-### Fichiers à supprimer
-- `src/components/ProblemeSection.tsx`
-- `src/components/MethodeSection.tsx`
-
----
-
-## Étapes d'implémentation
-
-1. **Suppression des sections** (ProblemeSection, MethodeSection)
-2. **Réorganisation de Index.tsx** (nouvel ordre)
-3. **Modification de AproposSection** (ajout du bloc CTA)
-4. **Modification de TarifsSection** (suppression formules horaires)
-5. **Création de CalendlyModal** (composant modale)
-6. **Mise à jour de tous les boutons Calendly** (utiliser la modale)
-7. **Création du hook useScrollAnimation**
-8. **Ajout des animations CSS**
-9. **Application des animations aux sections**
-10. **Activation de Stripe** (nécessite interaction utilisateur)
-11. **Création des produits Stripe**
-12. **Intégration des boutons de paiement**
-13. **Création de la page de succès**
-
----
-
-## Prompt récapitulatif du site (à utiliser dans un autre projet Lovable)
-
-Une fois les modifications effectuées, voici le prompt que vous pourrez utiliser :
-
-```text
-Créer un site web professionnel pour une consultante en formation (Mériem).
-
-IDENTITÉ VISUELLE :
-- Couleurs : Jaune/Or #FFCB00 (CTA), Crème #FFF8F0 (fond), Corail #F88379 (accent), Bleu marine #061B5C (textes/titres)
-- Typographies : Baloo 2 Bold (titres), Poppins Medium (sous-titres), Open Sans Regular (corps)
-- Style : Minimaliste moderne, beaucoup d'espace blanc, icônes épurées
-
-STRUCTURE DU SITE :
-
-Page Accueil (one-page) :
-1. Hero : Titre accrocheur + CTA vers pop-up Calendly
-2. À propos : Présentation de Mériem + 6 valeurs (Clarté, Rigueur, Fiabilité, Humanité, Engagement, Sérénité) + Bloc CTA appel découverte
-3. Accompagnements : 4 cartes (NDA, Qualiopi, EDOF/CPF, Répertoires Spécifiques)
-4. Tarifs : Récapitulatif des packs avec lien vers /tarifs
-5. Témoignages : Carrousel de citations clients
-6. FAQ : Accordéon avec questions fréquentes
-7. Contact : Invitation finale + CTA Calendly
-
-Page Tarifs (/tarifs) :
-- 4 packs d'accompagnement détaillés (NDA, Qualiopi, EDOF/CPF, RS)
-- 3 formules horaires (Essentielle, Avancée, Sur-mesure)
-- Boutons Stripe pour prix fixes, Calendly pour devis
-
-Page Ebook (/ebook) :
-- Guide gratuit NDA (formulaire email)
-- 3 ebooks gratuits
-- 3 ebooks premium avec paiement Stripe
-
-INTÉGRATIONS :
-- Calendly : Pop-up modale (https://calendly.com/av-assistas/audit-de-ton-business)
-- Stripe : Paiements sécurisés pour Pack NDA (380€) et ebooks (47€, 67€, 97€)
-
-TECHNIQUE :
-- React + Vite + Tailwind CSS + TypeScript
-- Navigation sticky avec ancres
-- Animations au scroll (fade-in)
-- Mobile-first responsive
-- Composants Shadcn/UI
+Après (mode embedded) :
+- session = stripe.checkout.sessions.create({ mode: "payment", ui_mode: "embedded", return_url })
+- Retourne : { clientSecret: session.client_secret }
+- Frontend : Affiche dans une modale
 ```
 
 ---
 
-## Note importante
+## Étape 3 : Créer le composant StripeCheckoutModal
 
-Pour l'intégration Stripe, je devrai activer l'intégration Stripe de Lovable. Cela vous demandera de fournir votre clé secrète Stripe (disponible dans Dashboard Stripe > Développeurs > Clés API). Voulez-vous que je procède à l'activation ?
+### Nouvelles dépendances
+
+```text
+@stripe/react-stripe-js - Composants React officiels de Stripe
+@stripe/stripe-js - Librairie Stripe.js
+```
+
+### Nouveau composant : `src/components/StripeCheckoutModal.tsx`
+
+Ce composant :
+- Utilise Radix UI Dialog (comme CalendlyModal)
+- Intègre `EmbeddedCheckoutProvider` et `EmbeddedCheckout` de Stripe
+- Récupère le `clientSecret` via l'Edge Function
+- Affiche le formulaire de paiement directement dans la modale
+
+### Structure du composant
+
+```text
+StripeCheckoutModal
+├── Dialog (Radix UI)
+│   └── EmbeddedCheckoutProvider (Stripe)
+│       └── EmbeddedCheckout (formulaire de paiement)
+```
+
+---
+
+## Étape 4 : Mettre à jour la page Tarifs
+
+### Modifications sur `src/pages/Tarifs.tsx`
+
+1. Remplacer l'import du client Supabase par une utilisation directe
+2. Ajouter un state pour gérer la modale Stripe
+3. Modifier `handleStripePayment` pour :
+   - Ouvrir la modale au lieu de rediriger
+   - Passer le `productKey` au composant modal
+4. Intégrer `StripeCheckoutModal` dans le JSX
+
+---
+
+## Étape 5 : Configuration de la clé publique Stripe
+
+La clé publique Stripe (`VITE_STRIPE_PUBLISHABLE_KEY`) est nécessaire côté frontend pour initialiser Stripe.js. Contrairement à la clé secrète, **la clé publique peut être stockée dans le code** car elle est conçue pour être visible.
+
+Vous devrez me fournir votre clé publique Stripe (format : `pk_live_...` ou `pk_test_...`).
+
+---
+
+## Fichiers à modifier/créer
+
+| Fichier | Action | Description |
+|---------|--------|-------------|
+| `supabase/functions/create-payment/index.ts` | Modifier | Ajouter `ui_mode: "embedded"`, retourner `clientSecret` |
+| `src/components/StripeCheckoutModal.tsx` | Créer | Composant modale avec Embedded Checkout |
+| `src/pages/Tarifs.tsx` | Modifier | Utiliser la modale au lieu de rediriger |
+| `package.json` | Modifier | Ajouter les dépendances Stripe React |
+
+---
+
+## Flux utilisateur final
+
+```text
+1. L'utilisateur clique sur "Commander maintenant"
+      ↓
+2. Une modale s'ouvre avec un spinner
+      ↓
+3. L'Edge Function crée la session Stripe et retourne le clientSecret
+      ↓
+4. Le formulaire Stripe Embedded Checkout s'affiche dans la modale
+      ↓
+5. L'utilisateur entre ses informations de paiement
+      ↓
+6. Après paiement, Stripe redirige vers /paiement-reussi
+```
+
+---
+
+## Prérequis avant implémentation
+
+1. **Activer Lovable Cloud** (je vais le proposer)
+2. **Fournir la clé publique Stripe** (format `pk_live_...` ou `pk_test_...`)
+
+---
+
+## Question
+
+Avez-vous votre clé publique Stripe à portée de main ? Elle est visible dans Dashboard Stripe > Développeurs > Clés API (la clé "Publishable key").
