@@ -1,4 +1,4 @@
-import { Check, ArrowRight, ArrowLeft } from "lucide-react";
+import { Check, ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
@@ -6,14 +6,18 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState } from "react";
 import CalendlyModal from "@/components/CalendlyModal";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 const Tarifs = () => {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+  const [loadingProduct, setLoadingProduct] = useState<string | null>(null);
 
   const packs = [
     {
       name: "Pack NDA",
-      price: "380€",
+      price: "400€",
+      productKey: "pack-nda",
       description: "Gestion complète des démarches administratives pour l'obtention de votre NDA",
       forWho: "Tout professionnel souhaitant démarrer une activité de formateur en France",
       features: [
@@ -27,44 +31,48 @@ const Tarifs = () => {
     },
     {
       name: "Pack Qualiopi",
-      price: "Sur devis",
-      description: "Accompagnement complet pour obtenir ou renouveler la certification Qualiopi",
+      price: "2 500€",
+      productKey: "pack-qualiopi",
+      description: "Accompagnement complet pour obtenir ou renouveler la certification Qualiopi avec audit",
       forWho: "Organismes de formation souhaitant accéder aux financements publics",
       features: [
-        "Audit de vos pratiques actuelles",
+        "Audit interne de vos pratiques actuelles",
         "Mise en place des processus conformes au référentiel national",
         "Mise en conformité documentaire complète",
         "Préparation à l'audit de certification",
         "Accompagnement jusqu'à l'obtention de Qualiopi",
       ],
-      cta: "calendly",
+      cta: "stripe",
     },
     {
-      name: "Pack EDOF/CPF",
-      price: "Sur devis",
-      description: "Inscription et référencement de vos formations sur Mon Compte Formation",
-      forWho: "Organismes certifiés Qualiopi souhaitant référencer leurs formations sur le CPF",
+      name: "Pack Qualiopi sans audit",
+      price: "1 800€",
+      productKey: "pack-qualiopi-sans-audit",
+      description: "Préparation et mise en conformité de tous les documents sans accompagnement à l'audit",
+      forWho: "Organismes souhaitant préparer leur documentation Qualiopi en autonomie pour l'audit",
       features: [
-        "Accompagnement à l'inscription sur la plateforme EDOF",
-        "Structuration de vos offres de formation éligibles CPF",
-        "Sécurisation du cadre réglementaire et administratif",
-        "Développement maîtrisé de votre activité CPF",
+        "Analyse de vos documents existants",
+        "Mise en conformité documentaire complète",
+        "Création des processus conformes au référentiel",
+        "Formation à l'utilisation des documents",
+        "Support pour questions avant audit",
       ],
-      cta: "calendly",
+      cta: "stripe",
     },
     {
-      name: "Pack Répertoires Spécifiques",
-      price: "Sur devis",
+      name: "Pack RS",
+      price: "700€",
+      productKey: "pack-rs",
       description: "Partenariat avec un RS existant ou accompagnement au dépôt de votre propre certification",
-      forWho: "Formateurs et organismes souhaitant valoriser leurs formations",
+      forWho: "Formateurs et organismes souhaitant valoriser leurs formations via les Répertoires Spécifiques",
       features: [
         "Identification du RS pertinent pour votre activité",
         "Mise en place du partenariat",
         "Structuration administrative et contractuelle",
-        "OU analyse de faisabilité pour dépôt RS",
+        "Analyse de faisabilité pour dépôt RS",
         "Mise en relation avec experte spécialisée",
       ],
-      cta: "calendly",
+      cta: "stripe",
     },
   ];
 
@@ -106,6 +114,30 @@ const Tarifs = () => {
       cta: "calendly",
     },
   ];
+
+  const handleStripePayment = async (productKey: string) => {
+    setLoadingProduct(productKey);
+    try {
+      const { data, error } = await supabase.functions.invoke('create-payment', {
+        body: { productKey },
+      });
+
+      if (error) throw error;
+
+      if (data?.url) {
+        window.open(data.url, '_blank');
+      }
+    } catch (error) {
+      console.error('Payment error:', error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de la création du paiement. Veuillez réessayer.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoadingProduct(null);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -178,11 +210,21 @@ const Tarifs = () => {
                       </ul>
                     </div>
                     <Button
-                      onClick={() => setIsCalendlyOpen(true)}
+                      onClick={() => pack.cta === "stripe" ? handleStripePayment(pack.productKey) : setIsCalendlyOpen(true)}
+                      disabled={loadingProduct === pack.productKey}
                       className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                     >
-                      {pack.cta === "stripe" ? "Commander maintenant" : "Demander un devis"}
-                      <ArrowRight className="ml-2 w-4 h-4" />
+                      {loadingProduct === pack.productKey ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Chargement...
+                        </>
+                      ) : (
+                        <>
+                          Commander maintenant
+                          <ArrowRight className="ml-2 w-4 h-4" />
+                        </>
+                      )}
                     </Button>
                   </CardContent>
                 </Card>
@@ -236,7 +278,7 @@ const Tarifs = () => {
                 Paiement sécurisé
               </h3>
               <p className="text-white/80 font-body max-w-2xl mx-auto mb-4">
-                Tous les paiements sont sécurisés. Vos données personnelles sont protégées et jamais partagées avec des tiers.
+                Tous les paiements sont sécurisés via Stripe. Vos données personnelles sont protégées et jamais partagées avec des tiers.
               </p>
               <p className="text-white/60 text-sm font-body">
                 Méthodes acceptées : Carte bancaire, virement, paiement en plusieurs fois selon les montants
