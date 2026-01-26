@@ -4,11 +4,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useState } from "react";
+import CalendlyModal from "@/components/CalendlyModal";
 
 const Tarifs = () => {
-  const openCalendly = () => {
-    window.open("https://calendly.com/av-assistas/audit-de-ton-business", "_blank");
-  };
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
   const packs = [
     {
@@ -79,7 +79,7 @@ const Tarifs = () => {
         "Accès aux services uniquement quand vous en avez besoin",
         "Flexibilité maximale",
       ],
-      cta: "stripe",
+      cta: "calendly",
     },
     {
       name: "Formule Avancée",
@@ -178,7 +178,7 @@ const Tarifs = () => {
                       </ul>
                     </div>
                     <Button
-                      onClick={openCalendly}
+                      onClick={() => setIsCalendlyOpen(true)}
                       className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                     >
                       {pack.cta === "stripe" ? "Commander maintenant" : "Demander un devis"}
@@ -217,11 +217,11 @@ const Tarifs = () => {
                       ))}
                     </ul>
                     <Button
-                      onClick={openCalendly}
-                      variant={formule.cta === "stripe" ? "default" : "outline"}
-                      className={`w-full ${formule.cta === "stripe" ? "bg-primary text-primary-foreground" : "border-primary text-primary hover:bg-primary hover:text-primary-foreground"}`}
+                      onClick={() => setIsCalendlyOpen(true)}
+                      variant="outline"
+                      className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                     >
-                      {formule.cta === "stripe" ? "Réserver des heures" : "Demander un devis"}
+                      Demander un devis
                     </Button>
                   </CardContent>
                 </Card>
@@ -247,6 +247,7 @@ const Tarifs = () => {
       </main>
 
       <Footer />
+      <CalendlyModal open={isCalendlyOpen} onOpenChange={setIsCalendlyOpen} />
     </div>
   );
 };

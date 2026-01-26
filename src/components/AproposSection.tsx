@@ -1,6 +1,15 @@
-import { Heart, Target, Shield, Users, Sparkles, Coffee } from "lucide-react";
+import { Heart, Target, Shield, Users, Sparkles, Coffee, Calendar, Mail, CheckCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import CalendlyModal from "./CalendlyModal";
+import useScrollAnimation from "@/hooks/useScrollAnimation";
 
 const AproposSection = () => {
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+  const { ref: sectionRef, isVisible } = useScrollAnimation();
+  const { ref: valuesRef, isVisible: valuesVisible } = useScrollAnimation();
+  const { ref: ctaRef, isVisible: ctaVisible } = useScrollAnimation();
+
   const values = [
     {
       icon: Target,
@@ -34,12 +43,24 @@ const AproposSection = () => {
     },
   ];
 
+  const callPoints = [
+    "Votre situation actuelle et vos objectifs de développement",
+    "Les démarches prioritaires pour avancer sereinement",
+    "L'accompagnement le plus adapté à vos besoins",
+    "Les prochaines étapes concrètes pour structurer votre projet",
+  ];
+
   return (
     <section id="apropos" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-16">
+          <div
+            ref={sectionRef}
+            className={`text-center mb-16 transition-all duration-700 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
             <span className="text-primary font-subheading font-medium text-sm uppercase tracking-wider">
               À propos
             </span>
@@ -49,7 +70,11 @@ const AproposSection = () => {
           </div>
 
           {/* About content */}
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+          <div
+            className={`grid lg:grid-cols-2 gap-12 items-center mb-16 transition-all duration-700 delay-100 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
             {/* Image placeholder */}
             <div className="relative">
               <div className="bg-gradient-to-br from-navy to-navy/80 rounded-2xl p-8 text-white">
@@ -99,15 +124,22 @@ const AproposSection = () => {
           </div>
 
           {/* Values */}
-          <div>
-            <h3 className="text-2xl font-heading font-bold text-center mb-8">
+          <div ref={valuesRef}>
+            <h3
+              className={`text-2xl font-heading font-bold text-center mb-8 transition-all duration-700 ${
+                valuesVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
               Les valeurs qui guident chaque accompagnement
             </h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {values.map((value, index) => (
                 <div
                   key={index}
-                  className="flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
+                  className={`flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-all duration-700 ${
+                    valuesVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                  }`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
                 >
                   <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                     <value.icon className="w-5 h-5 text-primary" />
@@ -124,8 +156,58 @@ const AproposSection = () => {
               ))}
             </div>
           </div>
+
+          {/* CTA Block */}
+          <div
+            ref={ctaRef}
+            className={`mt-16 bg-gradient-to-br from-navy to-navy/90 rounded-2xl p-8 md:p-12 text-white transition-all duration-700 ${
+              ctaVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
+            <div className="max-w-3xl mx-auto text-center">
+              <h3 className="text-2xl md:text-3xl font-heading font-bold mb-4">
+                Prêt·e à structurer votre activité de formation ?
+              </h3>
+              <p className="text-white/80 font-body mb-6">
+                Le premier pas vers la sérénité, c'est un échange sincère sur votre situation, vos objectifs et vos priorités. L'appel découverte est un moment dédié à votre projet, sans engagement.
+              </p>
+              <div className="text-left max-w-md mx-auto mb-8">
+                <p className="text-white font-subheading font-medium mb-4">
+                  Pendant cet appel, nous aborderons :
+                </p>
+                <ul className="space-y-3">
+                  {callPoints.map((point, index) => (
+                    <li key={index} className="flex items-start gap-3 text-white/80 font-body">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <Button
+                onClick={() => setIsCalendlyOpen(true)}
+                size="lg"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 font-subheading font-semibold text-lg px-8"
+              >
+                <Calendar className="w-5 h-5 mr-2" />
+                Réserver mon appel découverte
+              </Button>
+              <p className="mt-6 text-white/60 font-body text-sm">
+                Vous préférez m'écrire ?{" "}
+                <a
+                  href="mailto:contact@meriem-formation.fr"
+                  className="text-primary hover:underline inline-flex items-center gap-1"
+                >
+                  <Mail className="w-4 h-4" />
+                  contact@meriem-formation.fr
+                </a>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
+
+      <CalendlyModal open={isCalendlyOpen} onOpenChange={setIsCalendlyOpen} />
     </section>
   );
 };
