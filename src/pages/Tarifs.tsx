@@ -6,19 +6,15 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState } from "react";
 import CalendlyModal from "@/components/CalendlyModal";
-import StripeCheckoutModal from "@/components/StripeCheckoutModal";
 
 const Tarifs = () => {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
-  const [isStripeOpen, setIsStripeOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
 
   const packs = [
     {
       name: "Pack NDA",
       price: "400€",
-      productKey: "pack-nda",
-      description: "Gestion complète des démarches administratives pour l'obtention de votre NDA",
+      description: "Assistance pour l'obtention de votre NDA avec gestion complète des démarches administratives et suivi régulier tout au long du processus.",
       forWho: "Tout professionnel souhaitant démarrer une activité de formateur en France",
       features: [
         "Constitution complète du dossier administratif",
@@ -27,13 +23,11 @@ const Tarifs = () => {
         "Cadrage précis, sans improvisation",
         "Suivi personnalisé tout au long du processus",
       ],
-      cta: "stripe",
     },
     {
       name: "Pack Qualiopi",
       price: "2 500€",
-      productKey: "pack-qualiopi",
-      description: "Accompagnement complet pour obtenir ou renouveler la certification Qualiopi avec audit",
+      description: "Obtenir ou renouveler la certification Qualiopi : Audit interne, mise en conformité documentaire, préparation complète à l'audit officiel.",
       forWho: "Organismes de formation souhaitant accéder aux financements publics",
       features: [
         "Audit interne de vos pratiques actuelles",
@@ -42,13 +36,11 @@ const Tarifs = () => {
         "Préparation à l'audit de certification",
         "Accompagnement jusqu'à l'obtention de Qualiopi",
       ],
-      cta: "stripe",
     },
     {
       name: "Pack Qualiopi sans audit",
       price: "1 800€",
-      productKey: "pack-qualiopi-sans-audit",
-      description: "Préparation et mise en conformité de tous les documents sans accompagnement à l'audit",
+      description: "Préparation et mise en conformité de tous les documents.",
       forWho: "Organismes souhaitant préparer leur documentation Qualiopi en autonomie pour l'audit",
       features: [
         "Analyse de vos documents existants",
@@ -57,13 +49,11 @@ const Tarifs = () => {
         "Formation à l'utilisation des documents",
         "Support pour questions avant audit",
       ],
-      cta: "stripe",
     },
     {
       name: "Pack RS",
       price: "700€",
-      productKey: "pack-rs",
-      description: "Partenariat avec un RS existant ou accompagnement au dépôt de votre propre certification",
+      description: "Pack Partenariats et répertoires spécifiques (RS) pour les formateurs et organismes souhaitant s'adosser à un RS existant ou déposer leur propre certification.",
       forWho: "Formateurs et organismes souhaitant valoriser leurs formations via les Répertoires Spécifiques",
       features: [
         "Identification du RS pertinent pour votre activité",
@@ -72,7 +62,6 @@ const Tarifs = () => {
         "Analyse de faisabilité pour dépôt RS",
         "Mise en relation avec experte spécialisée",
       ],
-      cta: "stripe",
     },
   ];
 
@@ -87,7 +76,6 @@ const Tarifs = () => {
         "Accès aux services uniquement quand vous en avez besoin",
         "Flexibilité maximale",
       ],
-      cta: "calendly",
     },
     {
       name: "Formule Avancée",
@@ -99,7 +87,6 @@ const Tarifs = () => {
         "Détermination conjointe du nombre d'heures nécessaires",
         "Parfaite compréhension de ce qui est inclus",
       ],
-      cta: "calendly",
     },
     {
       name: "Formule Sur-Mesure",
@@ -111,14 +98,8 @@ const Tarifs = () => {
         "Parfaite pour des besoins ponctuels",
         "Garantie de résultats tangibles",
       ],
-      cta: "calendly",
     },
   ];
-
-  const handleStripePayment = (productKey: string) => {
-    setSelectedProduct(productKey);
-    setIsStripeOpen(true);
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -191,10 +172,10 @@ const Tarifs = () => {
                       </ul>
                     </div>
                     <Button
-                      onClick={() => pack.cta === "stripe" ? handleStripePayment(pack.productKey) : setIsCalendlyOpen(true)}
+                      onClick={() => setIsCalendlyOpen(true)}
                       className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                     >
-                      Commander maintenant
+                      Réserver un appel
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
                   </CardContent>
@@ -261,11 +242,6 @@ const Tarifs = () => {
 
       <Footer />
       <CalendlyModal open={isCalendlyOpen} onOpenChange={setIsCalendlyOpen} />
-      <StripeCheckoutModal 
-        open={isStripeOpen} 
-        onOpenChange={setIsStripeOpen} 
-        productKey={selectedProduct} 
-      />
     </div>
   );
 };
