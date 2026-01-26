@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CalendlyModal from "@/components/CalendlyModal";
 import StripeCheckoutModal from "@/components/StripeCheckoutModal";
 
@@ -15,6 +15,12 @@ const Tarifs = () => {
     productKey: "",
     productName: "",
   });
+
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const openPayment = (productKey: string, productName: string) => {
     setStripeModal({ open: true, productKey, productName });
   };
@@ -22,7 +28,7 @@ const Tarifs = () => {
   const packs = [
     {
       name: "Pack NDA",
-      price: "400€",
+      price: "400€ TTC",
       productKey: "pack-nda",
       description: "Assistance pour l'obtention de votre NDA avec gestion complète des démarches administratives et suivi régulier tout au long du processus.",
       forWho: "Tout professionnel souhaitant démarrer une activité de formateur en France",
@@ -36,7 +42,7 @@ const Tarifs = () => {
     },
     {
       name: "Pack Qualiopi",
-      price: "2 500€",
+      price: "2 500€ TTC",
       productKey: "pack-qualiopi",
       description: "Obtenir ou renouveler la certification Qualiopi : Audit interne, mise en conformité documentaire, préparation complète à l'audit officiel.",
       forWho: "Organismes de formation souhaitant accéder aux financements publics",
@@ -50,7 +56,7 @@ const Tarifs = () => {
     },
     {
       name: "Pack Qualiopi sans audit",
-      price: "1 800€",
+      price: "1 800€ TTC",
       productKey: "pack-qualiopi-sans-audit",
       description: "Préparation et mise en conformité de tous les documents.",
       forWho: "Organismes souhaitant préparer leur documentation Qualiopi en autonomie pour l'audit",
@@ -64,7 +70,7 @@ const Tarifs = () => {
     },
     {
       name: "Pack RS",
-      price: "700€",
+      price: "700€ TTC",
       productKey: "pack-rs",
       description: "Pack Partenariats et répertoires spécifiques (RS) pour les formateurs et organismes souhaitant s'adosser à un RS existant ou déposer leur propre certification.",
       forWho: "Formateurs et organismes souhaitant valoriser leurs formations via les Répertoires Spécifiques",
@@ -74,42 +80,6 @@ const Tarifs = () => {
         "Structuration administrative et contractuelle",
         "Analyse de faisabilité pour dépôt RS",
         "Mise en relation avec experte spécialisée",
-      ],
-    },
-  ];
-
-  const formules = [
-    {
-      name: "Formule Essentielle",
-      price: "75€/h",
-      description: "Services de consultante en formation disponibles à la demande",
-      features: [
-        "Aucune contrainte de contrat à long terme",
-        "Tarification claire et ajustée selon vos besoins",
-        "Accès aux services uniquement quand vous en avez besoin",
-        "Flexibilité maximale",
-      ],
-    },
-    {
-      name: "Formule Avancée",
-      price: "Sur devis",
-      description: "Forfait horaire personnalisé avec nombre d'heures déterminé ensemble",
-      features: [
-        "Un seul paiement pour une tranquillité d'esprit totale",
-        "Solution claire, sans surprises",
-        "Détermination conjointe du nombre d'heures nécessaires",
-        "Parfaite compréhension de ce qui est inclus",
-      ],
-    },
-    {
-      name: "Formule Sur-Mesure",
-      price: "Sur devis",
-      description: "Projets spécifiques avec objectifs et résultats définis",
-      features: [
-        "Axés sur des objectifs spécifiques",
-        "Projets bien définis pour des résultats concrets",
-        "Parfaite pour des besoins ponctuels",
-        "Garantie de résultats tangibles",
       ],
     },
   ];
@@ -147,23 +117,21 @@ const Tarifs = () => {
             <div className="grid lg:grid-cols-2 gap-8">
               {packs.map((pack, index) => (
                 <Card key={index} className="border-border hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <CardTitle className="text-2xl font-heading mb-2">
-                          {pack.name}
-                        </CardTitle>
-                        <p className="text-3xl font-heading font-bold text-primary">
-                          {pack.price}
-                        </p>
-                      </div>
+                  <CardHeader className="text-center">
+                    <div className="flex flex-col items-center">
+                      <CardTitle className="text-2xl font-heading mb-2">
+                        {pack.name}
+                      </CardTitle>
+                      <p className="text-3xl font-heading font-bold text-primary">
+                        {pack.price}
+                      </p>
                     </div>
-                    <CardDescription className="text-base font-body mt-4">
+                    <CardDescription className="text-base font-body mt-4 min-h-[72px] flex items-center justify-center">
                       {pack.description}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
-                    <div className="bg-muted/50 p-4 rounded-lg">
+                    <div className="bg-muted/50 p-4 rounded-lg text-center">
                       <p className="text-sm font-subheading font-medium text-foreground">
                         Pour qui ?
                       </p>
@@ -188,47 +156,8 @@ const Tarifs = () => {
                       onClick={() => openPayment(pack.productKey, pack.name)}
                       className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                     >
-                      Payer maintenant
+                      Commander maintenant
                       <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </section>
-
-          {/* Formules Section */}
-          <section>
-            <h2 className="text-2xl font-heading font-bold text-foreground mb-8">
-              Formules horaires
-            </h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              {formules.map((formule, index) => (
-                <Card key={index} className="border-border hover:shadow-lg transition-shadow">
-                  <CardHeader className="text-center">
-                    <CardTitle className="text-xl font-heading">{formule.name}</CardTitle>
-                    <p className="text-3xl font-heading font-bold text-primary mt-4">
-                      {formule.price}
-                    </p>
-                    <CardDescription className="font-body mt-2">
-                      {formule.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 mb-6">
-                      {formule.features.map((feature, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm font-body">
-                          <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                          <span className="text-muted-foreground">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <Button
-                      onClick={() => setIsCalendlyOpen(true)}
-                      variant="outline"
-                      className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                    >
-                      Demander un devis
                     </Button>
                   </CardContent>
                 </Card>

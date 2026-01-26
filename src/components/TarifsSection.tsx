@@ -13,34 +13,34 @@ const TarifsSection = () => {
   const packs = [
     {
       name: "Pack NDA",
-      price: "380€",
-      description: "Gestion complète des démarches administratives",
+      price: "400€",
+      description: "Assistance pour l'obtention de votre NDA avec gestion complète des démarches administratives",
       features: [
-        "Assistance pour l'obtention de votre NDA",
+        "Constitution complète du dossier administratif",
+        "Vérification de la conformité des documents",
         "Suivi personnalisé tout au long du processus",
-        "Vérification des documents",
       ],
       popular: false,
     },
     {
       name: "Pack Qualiopi",
-      price: "Sur devis",
-      description: "Accompagnement complet à la certification",
+      price: "2 500€",
+      description: "Obtenir ou renouveler la certification Qualiopi",
       features: [
-        "Audit de vos pratiques actuelles",
-        "Mise en conformité documentaire",
-        "Préparation à l'audit officiel",
+        "Audit interne de vos pratiques actuelles",
+        "Mise en conformité documentaire complète",
+        "Préparation à l'audit de certification",
       ],
       popular: true,
     },
     {
-      name: "Pack EDOF/CPF",
-      price: "Sur devis",
-      description: "Inscription et référencement CPF",
+      name: "Pack RS",
+      price: "700€",
+      description: "Partenariats et répertoires spécifiques pour formateurs et organismes",
       features: [
-        "Inscription sur la plateforme EDOF",
-        "Structuration des offres éligibles",
-        "Sécurisation du cadre réglementaire",
+        "Identification du RS pertinent pour votre activité",
+        "Mise en place du partenariat",
+        "Structuration administrative et contractuelle",
       ],
       popular: false,
     },
@@ -106,7 +106,7 @@ const TarifsSection = () => {
                     onClick={() => setIsCalendlyOpen(true)}
                     className={`w-full ${pack.popular ? "bg-primary text-primary-foreground" : "bg-navy text-white hover:bg-navy/90"}`}
                   >
-                    Réserver un appel
+                    Prendre un RDV
                   </Button>
                 </CardContent>
               </Card>
@@ -124,7 +124,7 @@ const TarifsSection = () => {
                 variant="outline"
                 className="border-primary text-primary hover:bg-primary hover:text-primary-foreground group"
               >
-                Voir tous les détails des tarifs
+                Reserver une prestation
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
