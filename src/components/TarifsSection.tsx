@@ -62,7 +62,7 @@ const TarifsSection = () => {
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mt-2 mb-4">
               Des offres <span className="text-primary">claires et transparentes</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-body">
+            <p className="text-lg text-foreground max-w-2xl mx-auto font-body">
               Choisissez l'accompagnement qui correspond à vos besoins et à votre situation.
             </p>
           </div>

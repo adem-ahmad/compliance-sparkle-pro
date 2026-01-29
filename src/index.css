@@ -28,7 +28,7 @@ All colors MUST be HSL.
     --secondary-foreground: 0 0% 0%;
 
     --muted: 30 10% 92%;
-    --muted-foreground: 30 5% 40%; /* Gris chaud #6B6560 */
+    --muted-foreground: 0 0% 0%; /* Noir pur */
 
     --accent: 5 89% 72%; /* Corail #F88379 */
     --accent-foreground: 0 0% 0%;

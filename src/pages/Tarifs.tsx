@@ -93,7 +93,7 @@ const Tarifs = () => {
           {/* Back link */}
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-foreground hover:text-primary transition-colors mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
             Retour à l'accueil
@@ -104,7 +104,7 @@ const Tarifs = () => {
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
               Tarifs & Prestations
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-body">
+            <p className="text-lg text-foreground max-w-2xl mx-auto font-body">
               Découvrez en détail chaque accompagnement et choisissez celui qui correspond à vos besoins.
             </p>
           </div>
@@ -135,7 +135,7 @@ const Tarifs = () => {
                       <p className="text-sm font-subheading font-medium text-foreground">
                         Pour qui ?
                       </p>
-                      <p className="text-sm text-muted-foreground font-body mt-1">
+                      <p className="text-sm text-foreground font-body mt-1">
                         {pack.forWho}
                       </p>
                     </div>
@@ -147,7 +147,7 @@ const Tarifs = () => {
                         {pack.features.map((feature, i) => (
                           <li key={i} className="flex items-start gap-2 text-sm font-body">
                             <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                            <span className="text-muted-foreground">{feature}</span>
+                            <span className="text-foreground">{feature}</span>
                           </li>
                         ))}
                       </ul>
