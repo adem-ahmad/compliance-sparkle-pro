@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import CalendlyModal from "./CalendlyModal";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import tarifsBackground from "@/assets/tarifs-background.png";
 
 const TarifsSection = () => {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
@@ -47,7 +48,16 @@ const TarifsSection = () => {
   ];
 
   return (
-    <section id="tarifs" className="py-20 bg-muted/30">
+    <section 
+      id="tarifs" 
+      className="py-20 relative"
+      style={{ 
+        backgroundImage: `url(${tarifsBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto" ref={ref}>
           {/* Header */}
