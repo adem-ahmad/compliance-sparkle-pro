@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Download, BookOpen, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, Download, BookOpen, Star, Target, Shield, Users, Heart, Sparkles, Coffee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,39 @@ import { useState } from "react";
 
 const Ebook = () => {
   const [email, setEmail] = useState("");
+
+  const values = [
+    {
+      icon: Target,
+      title: "Clarté",
+      description: "Chaque démarche est expliquée simplement, sans jargon inutile.",
+    },
+    {
+      icon: Shield,
+      title: "Rigueur",
+      description: "La conformité ne tolère aucune approximation. Chaque dossier est construit avec précision.",
+    },
+    {
+      icon: Users,
+      title: "Fiabilité",
+      description: "Vous pouvez compter sur un accompagnement constant et des engagements tenus.",
+    },
+    {
+      icon: Heart,
+      title: "Humanité",
+      description: "Derrière chaque dossier, il y a un projet humain. Je prends le temps d'écouter.",
+    },
+    {
+      icon: Sparkles,
+      title: "Engagement",
+      description: "Votre réussite est ma priorité. Je m'investis pleinement pour que votre projet aboutisse.",
+    },
+    {
+      icon: Coffee,
+      title: "Sérénité",
+      description: "Mon objectif : alléger votre charge mentale pour que vous puissiez vous concentrer sur l'essentiel.",
+    },
+  ];
 
   const freeEbooks = [
     {
@@ -83,6 +116,18 @@ const Ebook = () => {
               Que vous soyez en phase de réflexion ou déjà engagé dans votre projet, ces ressources sont conçues pour vous informer, vous rassurer et vous préparer à prendre les bonnes décisions.
             </p>
           </div>
+
+          {/* Ebooks pour comprendre le processus */}
+          <section className="mb-20">
+            <div className="bg-muted/50 rounded-2xl p-8 text-center">
+              <h3 className="text-xl font-heading font-bold text-foreground mb-4">
+                Les ebooks pour mieux comprendre le processus
+              </h3>
+              <p className="text-muted-foreground font-body max-w-2xl mx-auto">
+                Découvrez nos guides pratiques pour vous accompagner dans chaque étape de votre parcours de formateur. Des ressources claires et accessibles pour démystifier les démarches administratives.
+              </p>
+            </div>
+          </section>
 
           {/* Free Guide Section */}
           <section className="mb-20">
@@ -193,15 +238,25 @@ const Ebook = () => {
             </div>
           </section>
 
-          {/* Guarantee */}
+          {/* Values Section */}
           <section>
-            <div className="bg-muted/50 rounded-2xl p-8 text-center">
-              <h3 className="text-xl font-heading font-bold text-foreground mb-4">
-                Garantie satisfait ou remboursé 14 jours
-              </h3>
-              <p className="text-muted-foreground font-body max-w-2xl mx-auto">
-                Accès immédiat après paiement sécurisé. Formats PDF téléchargeables. Si vous n'êtes pas satisfait, nous vous remboursons intégralement sous 14 jours.
-              </p>
+            <h3 className="text-2xl font-heading font-bold text-center mb-8">
+              Les valeurs qui guident chaque accompagnement
+            </h3>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {values.map((value, index) => (
+                <Card key={index} className="border-border hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                      <value.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <CardTitle className="text-lg font-heading">{value.title}</CardTitle>
+                    <CardDescription className="font-body">
+                      {value.description}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
             </div>
           </section>
         </div>
