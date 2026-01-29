@@ -77,7 +77,7 @@ const AproposSection = () => {
           >
             {/* Image placeholder */}
             <div className="relative">
-              <div className="bg-gradient-to-br from-navy to-navy/80 rounded-2xl p-8 text-white">
+              <div className="bg-[#091b2e] rounded-2xl p-8 text-white">
                 <div className="w-32 h-32 bg-primary/20 rounded-full mx-auto mb-6 flex items-center justify-center">
                   <span className="text-5xl font-heading font-bold text-primary">M</span>
                 </div>
