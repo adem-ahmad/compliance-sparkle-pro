@@ -35,6 +35,7 @@ const Header = () => {
     { label: "Accueil", id: "hero" },
     { label: "À propos", id: "apropos" },
     { label: "Tarifs", id: "tarifs" },
+    { label: "Ebooks", id: "ebook", isPage: true },
     { label: "Témoignages", id: "temoignages" },
     { label: "FAQ", id: "faq" },
   ];
@@ -59,16 +60,25 @@ const Header = () => {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => scrollToSection(link.id)}
-                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
-              >
-                {link.label}
-              </button>
+              link.isPage ? (
+                <Link
+                  key={link.id}
+                  to={`/${link.id}`}
+                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <button
+                  key={link.id}
+                  onClick={() => scrollToSection(link.id)}
+                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
+                >
+                  {link.label}
+                </button>
+              )
             ))}
           </nav>
 
@@ -97,13 +107,24 @@ const Header = () => {
           <nav className="lg:hidden bg-background/98 backdrop-blur-md border-t mt-2 animate-fade-in">
             <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
               {navLinks.map((link) => (
-                <button
-                  key={link.id}
-                  onClick={() => scrollToSection(link.id)}
-                  className="text-left py-2 text-foreground/80 hover:text-primary transition-colors font-medium"
-                >
-                  {link.label}
-                </button>
+                link.isPage ? (
+                  <Link
+                    key={link.id}
+                    to={`/${link.id}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-left py-2 text-foreground/80 hover:text-primary transition-colors font-medium"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <button
+                    key={link.id}
+                    onClick={() => scrollToSection(link.id)}
+                    className="text-left py-2 text-foreground/80 hover:text-primary transition-colors font-medium"
+                  >
+                    {link.label}
+                  </button>
+                )
               ))}
               <Button
                 onClick={() => {
