@@ -13,38 +13,39 @@ All colors MUST be HSL.
   :root {
     /* Mériem Color Palette */
     --background: 30 100% 98%; /* Crème #FFF8F0 */
-    --foreground: 229 87% 19%; /* Bleu marine #061B5C */
+    --foreground: 35 10% 25%; /* Taupe #4A4238 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 229 87% 19%;
+    --card: 30 45% 92%; /* Beige doré #F5EBE0 */
+    --card-foreground: 35 10% 25%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 229 87% 19%;
+    --popover: 30 45% 92%; /* Beige doré #F5EBE0 */
+    --popover-foreground: 35 10% 25%;
 
     --primary: 48 100% 50%; /* Jaune/Or #FFCB00 */
-    --primary-foreground: 229 87% 19%;
+    --primary-foreground: 35 10% 25%;
 
     --secondary: 30 100% 98%; /* Crème */
-    --secondary-foreground: 229 87% 19%;
+    --secondary-foreground: 35 10% 25%;
 
     --muted: 30 30% 90%;
-    --muted-foreground: 229 40% 40%;
+    --muted-foreground: 35 10% 40%;
 
     --accent: 5 89% 72%; /* Corail #F88379 */
-    --accent-foreground: 229 87% 19%;
+    --accent-foreground: 35 10% 25%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 229 30% 85%;
-    --input: 229 30% 85%;
+    --border: 35 15% 80%;
+    --input: 35 15% 80%;
     --ring: 48 100% 50%;
 
     --radius: 0.75rem;
 
     /* Custom colors */
     --coral: 5 89% 72%;
-    --navy: 229 87% 19%;
+    --taupe: 35 10% 25%; /* Nouvelle couleur remplaçant navy */
+    --beige: 30 45% 92%; /* Nouvelle couleur remplaçant blanc */
     --gold: 48 100% 50%;
     --cream: 30 100% 98%;
 
