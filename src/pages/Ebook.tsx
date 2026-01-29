@@ -86,7 +86,7 @@ const Ebook = () => {
 
           {/* Free Guide Section */}
           <section className="mb-20">
-            <div className="bg-gradient-to-br from-navy to-navy/90 rounded-2xl p-8 md:p-12 text-white">
+            <div className="bg-[#0d1b2a] rounded-2xl p-8 md:p-12 text-white">
               <div className="grid lg:grid-cols-2 gap-8 items-center">
                 <div>
                   <span className="inline-block bg-primary/20 text-primary px-3 py-1 rounded-full text-sm font-subheading font-medium mb-4">
