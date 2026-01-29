@@ -12,7 +12,7 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Mériem Color Palette */
-    --background: 30 100% 98%; /* Crème #FFF8F0 */
+    --background: 42 63% 95%; /* Crème #FFF8F0 */
     --foreground: 229 87% 19%; /* Bleu marine #061B5C */
 
     --card: 0 0% 100%;
@@ -24,7 +24,7 @@ All colors MUST be HSL.
     --primary: 48 100% 50%; /* Jaune/Or #FFCB00 */
     --primary-foreground: 229 87% 19%;
 
-    --secondary: 30 100% 98%; /* Crème */
+    --secondary: 46 22% 88%; /* Crème */
     --secondary-foreground: 229 87% 19%;
 
     --muted: 30 30% 90%;
