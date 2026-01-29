@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Download, BookOpen, Star, Target, Shield, Users, Heart, Sparkles, Coffee } from "lucide-react";
+import { ArrowLeft, ArrowRight, Download, BookOpen, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,39 +9,6 @@ import { useState } from "react";
 
 const Ebook = () => {
   const [email, setEmail] = useState("");
-
-  const values = [
-    {
-      icon: Target,
-      title: "Clarté",
-      description: "Chaque démarche est expliquée simplement, sans jargon inutile.",
-    },
-    {
-      icon: Shield,
-      title: "Rigueur",
-      description: "La conformité ne tolère aucune approximation. Chaque dossier est construit avec précision.",
-    },
-    {
-      icon: Users,
-      title: "Fiabilité",
-      description: "Vous pouvez compter sur un accompagnement constant et des engagements tenus.",
-    },
-    {
-      icon: Heart,
-      title: "Humanité",
-      description: "Derrière chaque dossier, il y a un projet humain. Je prends le temps d'écouter.",
-    },
-    {
-      icon: Sparkles,
-      title: "Engagement",
-      description: "Votre réussite est ma priorité. Je m'investis pleinement pour que votre projet aboutisse.",
-    },
-    {
-      icon: Coffee,
-      title: "Sérénité",
-      description: "Mon objectif : alléger votre charge mentale pour que vous puissiez vous concentrer sur l'essentiel.",
-    },
-  ];
 
   const freeEbooks = [
     {
@@ -113,62 +80,10 @@ const Ebook = () => {
               Ebooks & Ressources
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-body">
-              Que vous soyez en phase de réflexion ou déjà engagé dans votre projet, ces ressources sont conçues pour vous informer, vous rassurer et vous préparer à prendre les bonnes décisions.
+              Que vous soyez en phase de réflexion ou déjà lancé dans votre projet, ces guides pratiques vous accompagnent à chaque étape de votre parcours de formateur. Clairs, accessibles et sans jargon, ils vous aident à prendre les bonnes décisions en toute sérénité.
             </p>
           </div>
 
-          {/* Ebooks pour comprendre le processus */}
-          <section className="mb-20">
-            <div className="bg-muted/50 rounded-2xl p-8 text-center">
-              <h3 className="text-xl font-heading font-bold text-foreground mb-4">
-                Les ebooks pour mieux comprendre le processus
-              </h3>
-              <p className="text-muted-foreground font-body max-w-2xl mx-auto">
-                Découvrez nos guides pratiques pour vous accompagner dans chaque étape de votre parcours de formateur. Des ressources claires et accessibles pour démystifier les démarches administratives.
-              </p>
-            </div>
-          </section>
-
-          {/* Free Guide Section */}
-          <section className="mb-20">
-            <div className="bg-[#0d1b2a] rounded-2xl p-8 md:p-12 text-white">
-              <div className="grid lg:grid-cols-2 gap-8 items-center">
-                <div>
-                  <span className="inline-block bg-primary/20 text-primary px-3 py-1 rounded-full text-sm font-subheading font-medium mb-4">
-                    Guide gratuit
-                  </span>
-                  <h2 className="text-3xl font-heading font-bold mb-4">
-                    Obtiens ton Guide NDA Gratuit Maintenant !
-                  </h2>
-                  <p className="text-white/80 font-body mb-6">
-                    Ce guide a été conçu pour t'accompagner étape par étape dans le processus d'obtention de ton NDA. Que tu sois un formateur indépendant ou un organisme de formation, tu trouveras ici des conseils pratiques et des explications claires.
-                  </p>
-                  <form onSubmit={handleSubmit} className="flex gap-3">
-                    <Input
-                      type="email"
-                      placeholder="Votre email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                    />
-                    <Button
-                      type="submit"
-                      className="bg-primary text-primary-foreground hover:bg-primary/90 whitespace-nowrap"
-                    >
-                      <Download className="w-4 h-4 mr-2" />
-                      Télécharger
-                    </Button>
-                  </form>
-                </div>
-                <div className="hidden lg:flex justify-center">
-                  <div className="w-48 h-64 bg-white/10 rounded-lg flex items-center justify-center">
-                    <BookOpen className="w-20 h-20 text-primary" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
 
           {/* Free Ebooks */}
           <section className="mb-20">
@@ -238,25 +153,44 @@ const Ebook = () => {
             </div>
           </section>
 
-          {/* Values Section */}
-          <section>
-            <h3 className="text-2xl font-heading font-bold text-center mb-8">
-              Les valeurs qui guident chaque accompagnement
-            </h3>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {values.map((value, index) => (
-                <Card key={index} className="border-border hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                      <value.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <CardTitle className="text-lg font-heading">{value.title}</CardTitle>
-                    <CardDescription className="font-body">
-                      {value.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              ))}
+          {/* Free Guide Section */}
+          <section className="mb-20">
+            <div className="bg-[#0d1b2a] rounded-2xl p-8 md:p-12 text-white">
+              <div className="grid lg:grid-cols-2 gap-8 items-center">
+                <div>
+                  <span className="inline-block bg-primary/20 text-primary px-3 py-1 rounded-full text-sm font-subheading font-medium mb-4">
+                    Guide gratuit
+                  </span>
+                  <h2 className="text-3xl font-heading font-bold mb-4">
+                    Obtiens ton Guide NDA Gratuit Maintenant !
+                  </h2>
+                  <p className="text-white/80 font-body mb-6">
+                    Ce guide a été conçu pour t'accompagner étape par étape dans le processus d'obtention de ton NDA. Que tu sois un formateur indépendant ou un organisme de formation, tu trouveras ici des conseils pratiques et des explications claires.
+                  </p>
+                  <form onSubmit={handleSubmit} className="flex gap-3">
+                    <Input
+                      type="email"
+                      placeholder="Votre email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                    />
+                    <Button
+                      type="submit"
+                      className="bg-primary text-primary-foreground hover:bg-primary/90 whitespace-nowrap"
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      Télécharger
+                    </Button>
+                  </form>
+                </div>
+                <div className="hidden lg:flex justify-center">
+                  <div className="w-48 h-64 bg-white/10 rounded-lg flex items-center justify-center">
+                    <BookOpen className="w-20 h-20 text-primary" />
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         </div>

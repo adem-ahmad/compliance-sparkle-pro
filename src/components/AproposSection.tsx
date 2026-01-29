@@ -136,22 +136,20 @@ const AproposSection = () => {
               {values.map((value, index) => (
                 <div
                   key={index}
-                  className={`flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-all duration-700 ${
+                  className={`bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-all duration-700 ${
                     valuesVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                   }`}
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <value.icon className="w-5 h-5 text-primary" />
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <value.icon className="w-6 h-6 text-primary" />
                   </div>
-                  <div>
-                    <h4 className="font-subheading font-semibold text-foreground mb-1">
-                      {value.title}
-                    </h4>
-                    <p className="text-sm text-muted-foreground font-body">
-                      {value.description}
-                    </p>
-                  </div>
+                  <h4 className="font-subheading font-semibold text-foreground text-lg mb-2">
+                    {value.title}
+                  </h4>
+                  <p className="text-sm text-muted-foreground font-body">
+                    {value.description}
+                  </p>
                 </div>
               ))}
             </div>
