@@ -44,7 +44,7 @@ const HeroSection = () => {
             <Button
               onClick={() => setIsCalendlyOpen(true)}
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 font-subheading font-semibold text-lg px-8 py-6 group"
+              className="bg-[#f2a202] text-white hover:bg-[#f2a202]/90 font-subheading font-semibold text-lg px-8 py-6 group"
             >
               Réserver un appel découverte
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />

@@ -104,7 +104,7 @@ const TarifsSection = () => {
                   </ul>
                   <Button
                     onClick={() => setIsCalendlyOpen(true)}
-                    className={`w-full ${pack.popular ? "bg-primary text-primary-foreground" : "bg-[#091b2e] text-white hover:bg-[#091b2e]/90"}`}
+                    className={`w-full ${pack.popular ? "bg-[#f2a202] text-white hover:bg-[#f2a202]/90" : "bg-[#091b2e] text-white hover:bg-[#091b2e]/90"}`}
                   >
                     Prendre un RDV
                   </Button>
