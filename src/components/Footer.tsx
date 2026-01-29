@@ -1,11 +1,20 @@
 import { Link } from "react-router-dom";
 import { Linkedin, Instagram, Facebook } from "lucide-react";
+import tarifsBackground from "@/assets/tarifs-background.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-navy text-white py-12">
+    <footer 
+      className="text-white py-12"
+      style={{ 
+        backgroundImage: `url(${tarifsBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
