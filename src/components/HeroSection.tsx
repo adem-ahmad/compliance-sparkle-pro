@@ -11,8 +11,8 @@ const HeroSection = () => {
       id="hero"
       className="relative min-h-screen flex items-center pt-20 overflow-hidden"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy to-navy/90" />
+      {/* Background */}
+      <div className="absolute inset-0 bg-background" />
       
       {/* Decorative elements */}
       <div className="absolute top-20 right-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
@@ -28,13 +28,13 @@ const HeroSection = () => {
           </div>
 
           {/* Main Title */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6 leading-tight animate-fade-up" style={{ animationDelay: "0.1s" }}>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-foreground mb-6 leading-tight animate-fade-up" style={{ animationDelay: "0.1s" }}>
             Transformez votre activité de formation en{" "}
             <span className="text-primary">projet structuré, conforme et serein</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-8 font-body animate-fade-up" style={{ animationDelay: "0.2s" }}>
+          <p className="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto mb-8 font-body animate-fade-up" style={{ animationDelay: "0.2s" }}>
             Je structure et sécurise votre activité de formation, avec clarté et méthode. 
             NDA, Qualiopi, EDOF/CPF, Répertoires Spécifiques — vous méritez un accompagnement qui clarifie chaque étape.
           </p>
@@ -52,7 +52,7 @@ const HeroSection = () => {
             <Button
               variant="outline"
               size="lg"
-              className="border-white/30 text-white hover:bg-white/10 font-subheading font-medium text-lg px-8 py-6"
+              className="border-foreground/30 text-foreground hover:bg-foreground/10 font-subheading font-medium text-lg px-8 py-6"
               onClick={() => document.getElementById("accompagnements")?.scrollIntoView({ behavior: "smooth" })}
             >
               Découvrir les accompagnements
@@ -60,7 +60,7 @@ const HeroSection = () => {
           </div>
 
           {/* Trust indicators */}
-          <div className="flex flex-wrap justify-center gap-6 text-white/70 animate-fade-up" style={{ animationDelay: "0.4s" }}>
+          <div className="flex flex-wrap justify-center gap-6 text-foreground/70 animate-fade-up" style={{ animationDelay: "0.4s" }}>
             <div className="flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-primary" />
               <span className="text-sm font-body">Accompagnement personnalisé</span>
