@@ -167,7 +167,7 @@ const Tarifs = () => {
 
           {/* Payment info */}
           <section className="mt-16">
-            <div className="bg-navy text-white rounded-2xl p-8 text-center">
+            <div className="bg-[#0d1b2a] text-white rounded-2xl p-8 text-center">
               <h3 className="text-2xl font-heading font-bold mb-4">
                 Paiement sécurisé
               </h3>

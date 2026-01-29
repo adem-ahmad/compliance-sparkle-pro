@@ -147,7 +147,7 @@ const Ebook = () => {
                   </CardHeader>
                   <CardContent className="mt-auto">
                     <Button
-                      className="w-full bg-[#f2a202] text-[#0d1b2a] hover:bg-[#f2a202]/90"
+                      className="w-full bg-[#f79073] text-[#0d1b2a] hover:bg-[#f79073]/90"
                     >
                       Télécharger gratuitement
                     </Button>
