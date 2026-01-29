@@ -12,7 +12,7 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Mériem Color Palette - Optimisée */
-    --background: 30 40% 98%; /* Blanc chaud #FDFBF9 */
+    --background: 215 25% 26.6667%; /* Blanc chaud #FDFBF9 */
     --foreground: 0 0% 0%; /* Noir pur #000000 */
 
     --card: 0 0% 100%; /* Blanc pur #FFFFFF */
