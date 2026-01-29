@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
 import CalendlyModal from "@/components/CalendlyModal";
 import StripeCheckoutModal from "@/components/StripeCheckoutModal";
+import tarifsBackground from "@/assets/tarifs-background.jpg";
 
 const Tarifs = () => {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
@@ -85,7 +86,10 @@ const Tarifs = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div 
+      className="min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
+      style={{ backgroundImage: `url(${tarifsBackground})` }}
+    >
       <Header />
       
       <main className="pt-24 pb-20">
