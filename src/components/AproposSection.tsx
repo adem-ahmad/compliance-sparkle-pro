@@ -187,7 +187,7 @@ const AproposSection = () => {
               <Button
                 onClick={() => setIsCalendlyOpen(true)}
                 size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 font-subheading font-semibold text-lg px-8"
+                className="bg-[#f2a202] text-[#0d1b2a] hover:bg-[#f2a202]/90 font-subheading font-semibold text-lg px-8"
               >
                 <Calendar className="w-5 h-5 mr-2" />
                 Réserver mon appel découverte
