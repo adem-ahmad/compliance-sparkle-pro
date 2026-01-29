@@ -53,8 +53,7 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         coral: "hsl(var(--coral))",
-        taupe: "hsl(var(--taupe))",
-        beige: "hsl(var(--beige))",
+        peach: "hsl(var(--peach))",
         gold: "hsl(var(--gold))",
         cream: "hsl(var(--cream))",
         sidebar: {

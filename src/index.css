@@ -11,43 +11,42 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Mériem Color Palette */
-    --background: 30 100% 98%; /* Crème #FFF8F0 */
-    --foreground: 35 10% 25%; /* Taupe #4A4238 */
+    /* Mériem Color Palette - Nouvelle version */
+    --background: 0 0% 98%; /* Blanc cassé #FAFAFA */
+    --foreground: 0 0% 10%; /* Noir profond #1A1A1A */
 
-    --card: 30 45% 92%; /* Beige doré #F5EBE0 */
-    --card-foreground: 35 10% 25%;
+    --card: 20 100% 95%; /* Pêche clair #FFF0E8 */
+    --card-foreground: 0 0% 10%;
 
-    --popover: 30 45% 92%; /* Beige doré #F5EBE0 */
-    --popover-foreground: 35 10% 25%;
+    --popover: 20 100% 95%; /* Pêche clair #FFF0E8 */
+    --popover-foreground: 0 0% 10%;
 
     --primary: 48 100% 50%; /* Jaune/Or #FFCB00 */
-    --primary-foreground: 35 10% 25%;
+    --primary-foreground: 0 0% 10%;
 
-    --secondary: 30 100% 98%; /* Crème */
-    --secondary-foreground: 35 10% 25%;
+    --secondary: 0 0% 98%; /* Blanc cassé */
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 30 30% 90%;
-    --muted-foreground: 35 10% 40%;
+    --muted: 20 20% 92%;
+    --muted-foreground: 0 0% 35%;
 
     --accent: 5 89% 72%; /* Corail #F88379 */
-    --accent-foreground: 35 10% 25%;
+    --accent-foreground: 0 0% 10%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 35 15% 80%;
-    --input: 35 15% 80%;
+    --border: 20 20% 85%;
+    --input: 20 20% 85%;
     --ring: 48 100% 50%;
 
     --radius: 0.75rem;
 
     /* Custom colors */
     --coral: 5 89% 72%;
-    --taupe: 35 10% 25%; /* Nouvelle couleur remplaçant navy */
-    --beige: 30 45% 92%; /* Nouvelle couleur remplaçant blanc */
+    --peach: 20 100% 95%; /* Pêche clair */
     --gold: 48 100% 50%;
-    --cream: 30 100% 98%;
+    --cream: 0 0% 98%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
