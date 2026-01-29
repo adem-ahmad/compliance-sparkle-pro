@@ -1,92 +1,38 @@
 
-# Plan de Modification de la Palette de Couleurs
 
-## Situation Actuelle
-La palette actuelle utilise :
-- **Navy (Bleu marine)** `#061B5C` - couleur principale du texte (foreground)
-- **Cream (Blanc casse)** `#FFF8F0` - couleur de fond (background)
-- **Blanc pur** `#FFFFFF` - pour les cartes et popovers
+# Plan : Changer le fond du Hero en #FBE7C6
 
-## Nouvelle Palette Proposee
+## Situation actuelle
+La section Hero utilise actuellement :
+- Un fond avec dégradé bleu marine : `bg-gradient-to-br from-navy via-navy to-navy/90`
+- Textes en blanc (`text-white`) pour contraster avec le fond sombre
+- Éléments décoratifs avec opacités basées sur le fond sombre
 
-### Remplacement du Bleu Marine
-Le bleu marine sera remplace par un **beige chaud / taupe** qui reste lisible tout en etant plus doux :
-- **Taupe fonce** `#4A4238` (HSL: 35 10% 25%)
+## Modifications à effectuer
 
-### Remplacement du Blanc
-Le blanc pur des cartes sera remplace par un **beige dore clair** pour creer plus de chaleur :
-- **Beige dore** `#F5EBE0` (HSL: 30 45% 92%)
+### 1. Fichier `src/components/HeroSection.tsx`
 
-### Palette Complete Mise a Jour
-
-| Element | Ancienne Couleur | Nouvelle Couleur |
-|---------|------------------|------------------|
-| Texte principal (foreground) | Navy `#061B5C` | Taupe `#4A4238` |
-| Cartes/Popovers | Blanc `#FFFFFF` | Beige dore `#F5EBE0` |
-| Fond (background) | Cream `#FFF8F0` | Reste identique |
-| Boutons (primary) | Gold `#FFCB00` | Reste identique |
-| Accent | Coral `#F88379` | Reste identique |
-
-## Fichier a Modifier
-
-### `src/index.css`
-
-Modifications dans la section `:root` :
-
-```css
-:root {
-  /* Background reste identique */
-  --background: 30 100% 98%; /* Creme #FFF8F0 */
-  
-  /* Foreground : Navy -> Taupe */
-  --foreground: 35 10% 25%; /* Taupe #4A4238 */
-
-  /* Cards et Popovers : Blanc -> Beige dore */
-  --card: 30 45% 92%; /* Beige dore #F5EBE0 */
-  --card-foreground: 35 10% 25%;
-  --popover: 30 45% 92%;
-  --popover-foreground: 35 10% 25%;
-
-  /* Primary foreground */
-  --primary-foreground: 35 10% 25%;
-  
-  /* Secondary foreground */
-  --secondary-foreground: 35 10% 25%;
-  
-  /* Muted */
-  --muted-foreground: 35 10% 40%;
-  
-  /* Accent foreground */
-  --accent-foreground: 35 10% 25%;
-  
-  /* Borders - ton neutre */
-  --border: 35 15% 80%;
-  --input: 35 15% 80%;
-
-  /* Custom colors */
-  --taupe: 35 10% 25%; /* Nouvelle couleur remplacant navy */
-  --beige: 30 45% 92%; /* Nouvelle couleur remplacant blanc */
-}
+**Changement du fond (ligne 15)**
+```
+Avant : bg-gradient-to-br from-navy via-navy to-navy/90
+Après : bg-[#FBE7C6]
 ```
 
-### `tailwind.config.ts`
+**Adaptation des couleurs de texte**
+Le texte blanc ne sera plus lisible sur fond pêche. Les textes seront modifiés :
 
-Ajout des nouvelles couleurs custom :
-```typescript
-colors: {
-  // ... existing colors ...
-  taupe: "hsl(var(--taupe))",
-  beige: "hsl(var(--beige))",
-}
-```
+| Élément | Avant | Après |
+|---------|-------|-------|
+| Titre principal (h1) | `text-white` | `text-foreground` |
+| Sous-titre (p) | `text-white/80` | `text-foreground/80` |
+| Indicateurs de confiance | `text-white/70` | `text-foreground/70` |
+| Bouton secondaire | `border-white/30 text-white hover:bg-white/10` | `border-foreground/30 text-foreground hover:bg-foreground/10` |
 
-## Resultat Visuel Attendu
-- Textes en taupe fonce sur fond creme = contraste doux mais lisible
-- Cartes en beige dore = harmonie chaude avec le fond creme
-- Les boutons jaune/or et accents corail restent identiques pour le dynamisme
-- Ambiance generale plus chaleureuse et moins contrastee
+**Éléments décoratifs (lignes 18-19)**
+Les cercles flous resteront identiques car ils utilisent déjà les couleurs primary et accent qui contrastent bien avec le fond pêche.
 
-## Details Techniques
-- Une seule modification dans `src/index.css` (variables CSS)
-- Une petite modification dans `tailwind.config.ts` (couleurs custom)
-- Aucun changement necessaire dans les composants car ils utilisent les variables CSS
+## Résultat attendu
+- Fond de la Hero section en couleur pêche `#FBE7C6` (identique au reste du site)
+- Textes en couleur taupe/foreground pour assurer la lisibilité
+- Harmonie visuelle avec le header et le reste du site
+
