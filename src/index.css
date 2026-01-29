@@ -114,7 +114,7 @@ All colors MUST be HSL.
   }
 
   h1, h2, h3 {
-    font-family: 'Baloo 2', cursive;
+    font-family: 'Baloo 2', cursive !important;
   }
 
   h4, h5, h6 {
@@ -124,7 +124,10 @@ All colors MUST be HSL.
 
 @layer utilities {
   .font-heading {
-    font-family: 'Baloo 2', cursive;
+    font-family: 'Baloo 2', cursive !important;
+    -webkit-text-stroke: 15px orange;
+    stroke: 2px orange;
+    paint-order: stroke fill;
   }
 
   .font-subheading {
