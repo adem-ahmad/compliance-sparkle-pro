@@ -27,6 +27,7 @@ export default {
   				'sans-serif'
   			],
   			sans: [
+  				'Poppins',
   				'ui-sans-serif',
   				'system-ui',
   				'sans-serif',
