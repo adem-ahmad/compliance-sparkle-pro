@@ -135,7 +135,7 @@ const Ebook = () => {
             </p>
             <div className="grid md:grid-cols-3 gap-6">
               {freeEbooks.map((ebook, index) => (
-                <Card key={index} className="border-border hover:shadow-lg transition-shadow">
+                <Card key={index} className="border-border hover:shadow-lg transition-shadow flex flex-col">
                   <CardHeader>
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                       <ebook.icon className="w-6 h-6 text-primary" />
@@ -145,10 +145,9 @@ const Ebook = () => {
                       {ebook.description}
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="mt-auto">
                     <Button
-                      variant="outline"
-                      className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                      className="w-full bg-[#f2a202] text-[#0d1b2a] hover:bg-[#f2a202]/90"
                     >
                       Télécharger gratuitement
                     </Button>
@@ -168,7 +167,7 @@ const Ebook = () => {
             </p>
             <div className="grid md:grid-cols-3 gap-6">
               {paidEbooks.map((ebook, index) => (
-                <Card key={index} className="border-border hover:shadow-lg transition-shadow relative overflow-hidden">
+                <Card key={index} className="border-border hover:shadow-lg transition-shadow relative overflow-hidden flex flex-col">
                   <div className="absolute top-4 right-4 bg-accent text-white text-sm font-semibold px-3 py-1 rounded-full">
                     {ebook.price}
                   </div>
@@ -183,8 +182,8 @@ const Ebook = () => {
                       {ebook.description}
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <Button className="w-full bg-navy text-white hover:bg-navy/90">
+                  <CardContent className="mt-auto">
+                    <Button className="w-full bg-[#f2a202] text-[#0d1b2a] hover:bg-[#f2a202]/90">
                       Commander
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
