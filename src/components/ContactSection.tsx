@@ -49,7 +49,7 @@ const ContactSection = () => {
               <Button
                 onClick={openCalendly}
                 size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 font-subheading font-semibold text-lg px-8 group"
+                className="bg-[#f2a202] text-[#091b2e] hover:bg-[#f2a202]/90 font-subheading font-semibold text-lg px-8 group"
               >
                 <Calendar className="mr-2 w-5 h-5" />
                 Réserver mon appel découverte

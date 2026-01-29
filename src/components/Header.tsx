@@ -95,7 +95,7 @@ const Header = () => {
           <div className="hidden lg:block">
             <Button
               onClick={() => setIsCalendlyOpen(true)}
-              className="bg-[#f2a202] text-white hover:bg-[#f2a202]/90 font-subheading font-semibold px-6"
+              className="bg-[#f2a202] text-[#091b2e] hover:bg-[#f2a202]/90 font-subheading font-semibold px-6"
             >
               Réserver un appel
             </Button>
@@ -140,7 +140,7 @@ const Header = () => {
                   setIsMobileMenuOpen(false);
                   setIsCalendlyOpen(true);
                 }}
-                className="bg-[#f2a202] text-white hover:bg-[#f2a202]/90 font-subheading font-semibold mt-2"
+                className="bg-[#f2a202] text-[#091b2e] hover:bg-[#f2a202]/90 font-subheading font-semibold mt-2"
               >
                 Réserver un appel
               </Button>
