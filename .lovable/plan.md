@@ -1,139 +1,92 @@
 
-# Plan : Configuration Supabase + Stripe Embedded Checkout
+# Plan de Modification de la Palette de Couleurs
 
-## Resume
+## Situation Actuelle
+La palette actuelle utilise :
+- **Navy (Bleu marine)** `#061B5C` - couleur principale du texte (foreground)
+- **Cream (Blanc casse)** `#FFF8F0` - couleur de fond (background)
+- **Blanc pur** `#FFFFFF` - pour les cartes et popovers
 
-Ce plan couvre deux étapes principales :
-1. **Configuration de Supabase** - Activer Lovable Cloud pour utiliser les Edge Functions
-2. **Implémentation de Stripe Embedded Checkout** - Formulaire de paiement dans une modale popup
+## Nouvelle Palette Proposee
 
----
+### Remplacement du Bleu Marine
+Le bleu marine sera remplace par un **beige chaud / taupe** qui reste lisible tout en etant plus doux :
+- **Taupe fonce** `#4A4238` (HSL: 35 10% 25%)
 
-## Pourquoi Supabase est nécessaire ?
+### Remplacement du Blanc
+Le blanc pur des cartes sera remplace par un **beige dore clair** pour creer plus de chaleur :
+- **Beige dore** `#F5EBE0` (HSL: 30 45% 92%)
 
-La clé secrète Stripe (`STRIPE_SECRET_KEY`) ne doit **jamais** être exposée dans le code frontend. Supabase permet de :
-- Stocker la clé secrète de manière sécurisée (elle est déjà configurée)
-- Exécuter des Edge Functions côté serveur pour créer les sessions de paiement
-- Communiquer avec Stripe sans exposer les credentials
+### Palette Complete Mise a Jour
 
----
+| Element | Ancienne Couleur | Nouvelle Couleur |
+|---------|------------------|------------------|
+| Texte principal (foreground) | Navy `#061B5C` | Taupe `#4A4238` |
+| Cartes/Popovers | Blanc `#FFFFFF` | Beige dore `#F5EBE0` |
+| Fond (background) | Cream `#FFF8F0` | Reste identique |
+| Boutons (primary) | Gold `#FFCB00` | Reste identique |
+| Accent | Coral `#F88379` | Reste identique |
 
-## Étape 1 : Activer Lovable Cloud
+## Fichier a Modifier
 
-Lovable Cloud fournit un backend Supabase managé sans avoir besoin de créer un compte externe.
+### `src/index.css`
 
-**Action requise** : Je vais activer Lovable Cloud pour vous (cela nécessite votre approbation).
+Modifications dans la section `:root` :
 
----
+```css
+:root {
+  /* Background reste identique */
+  --background: 30 100% 98%; /* Creme #FFF8F0 */
+  
+  /* Foreground : Navy -> Taupe */
+  --foreground: 35 10% 25%; /* Taupe #4A4238 */
 
-## Étape 2 : Modifier l'Edge Function pour Embedded Checkout
+  /* Cards et Popovers : Blanc -> Beige dore */
+  --card: 30 45% 92%; /* Beige dore #F5EBE0 */
+  --card-foreground: 35 10% 25%;
+  --popover: 30 45% 92%;
+  --popover-foreground: 35 10% 25%;
 
-### Changements sur l'Edge Function `create-payment`
+  /* Primary foreground */
+  --primary-foreground: 35 10% 25%;
+  
+  /* Secondary foreground */
+  --secondary-foreground: 35 10% 25%;
+  
+  /* Muted */
+  --muted-foreground: 35 10% 40%;
+  
+  /* Accent foreground */
+  --accent-foreground: 35 10% 25%;
+  
+  /* Borders - ton neutre */
+  --border: 35 15% 80%;
+  --input: 35 15% 80%;
 
-L'Edge Function actuelle retourne une URL de redirection. Pour l'Embedded Checkout, elle doit :
-- Utiliser `ui_mode: "embedded"` au lieu du mode hosted
-- Retourner `client_secret` au lieu de `url`
-- Utiliser `return_url` au lieu de `success_url`
-
-```text
-Avant (mode hosted) :
-- session = stripe.checkout.sessions.create({ mode: "payment", success_url, cancel_url })
-- Retourne : { url: session.url }
-- Frontend : window.open(url, '_blank')
-
-Après (mode embedded) :
-- session = stripe.checkout.sessions.create({ mode: "payment", ui_mode: "embedded", return_url })
-- Retourne : { clientSecret: session.client_secret }
-- Frontend : Affiche dans une modale
+  /* Custom colors */
+  --taupe: 35 10% 25%; /* Nouvelle couleur remplacant navy */
+  --beige: 30 45% 92%; /* Nouvelle couleur remplacant blanc */
+}
 ```
 
----
+### `tailwind.config.ts`
 
-## Étape 3 : Créer le composant StripeCheckoutModal
-
-### Nouvelles dépendances
-
-```text
-@stripe/react-stripe-js - Composants React officiels de Stripe
-@stripe/stripe-js - Librairie Stripe.js
+Ajout des nouvelles couleurs custom :
+```typescript
+colors: {
+  // ... existing colors ...
+  taupe: "hsl(var(--taupe))",
+  beige: "hsl(var(--beige))",
+}
 ```
 
-### Nouveau composant : `src/components/StripeCheckoutModal.tsx`
+## Resultat Visuel Attendu
+- Textes en taupe fonce sur fond creme = contraste doux mais lisible
+- Cartes en beige dore = harmonie chaude avec le fond creme
+- Les boutons jaune/or et accents corail restent identiques pour le dynamisme
+- Ambiance generale plus chaleureuse et moins contrastee
 
-Ce composant :
-- Utilise Radix UI Dialog (comme CalendlyModal)
-- Intègre `EmbeddedCheckoutProvider` et `EmbeddedCheckout` de Stripe
-- Récupère le `clientSecret` via l'Edge Function
-- Affiche le formulaire de paiement directement dans la modale
-
-### Structure du composant
-
-```text
-StripeCheckoutModal
-├── Dialog (Radix UI)
-│   └── EmbeddedCheckoutProvider (Stripe)
-│       └── EmbeddedCheckout (formulaire de paiement)
-```
-
----
-
-## Étape 4 : Mettre à jour la page Tarifs
-
-### Modifications sur `src/pages/Tarifs.tsx`
-
-1. Remplacer l'import du client Supabase par une utilisation directe
-2. Ajouter un state pour gérer la modale Stripe
-3. Modifier `handleStripePayment` pour :
-   - Ouvrir la modale au lieu de rediriger
-   - Passer le `productKey` au composant modal
-4. Intégrer `StripeCheckoutModal` dans le JSX
-
----
-
-## Étape 5 : Configuration de la clé publique Stripe
-
-La clé publique Stripe (`VITE_STRIPE_PUBLISHABLE_KEY`) est nécessaire côté frontend pour initialiser Stripe.js. Contrairement à la clé secrète, **la clé publique peut être stockée dans le code** car elle est conçue pour être visible.
-
-Vous devrez me fournir votre clé publique Stripe (format : `pk_live_...` ou `pk_test_...`).
-
----
-
-## Fichiers à modifier/créer
-
-| Fichier | Action | Description |
-|---------|--------|-------------|
-| `supabase/functions/create-payment/index.ts` | Modifier | Ajouter `ui_mode: "embedded"`, retourner `clientSecret` |
-| `src/components/StripeCheckoutModal.tsx` | Créer | Composant modale avec Embedded Checkout |
-| `src/pages/Tarifs.tsx` | Modifier | Utiliser la modale au lieu de rediriger |
-| `package.json` | Modifier | Ajouter les dépendances Stripe React |
-
----
-
-## Flux utilisateur final
-
-```text
-1. L'utilisateur clique sur "Commander maintenant"
-      ↓
-2. Une modale s'ouvre avec un spinner
-      ↓
-3. L'Edge Function crée la session Stripe et retourne le clientSecret
-      ↓
-4. Le formulaire Stripe Embedded Checkout s'affiche dans la modale
-      ↓
-5. L'utilisateur entre ses informations de paiement
-      ↓
-6. Après paiement, Stripe redirige vers /paiement-reussi
-```
-
----
-
-## Prérequis avant implémentation
-
-1. **Activer Lovable Cloud** (je vais le proposer)
-2. **Fournir la clé publique Stripe** (format `pk_live_...` ou `pk_test_...`)
-
----
-
-## Question
-
-Avez-vous votre clé publique Stripe à portée de main ? Elle est visible dans Dashboard Stripe > Développeurs > Clés API (la clé "Publishable key").
+## Details Techniques
+- Une seule modification dans `src/index.css` (variables CSS)
+- Une petite modification dans `tailwind.config.ts` (couleurs custom)
+- Aucun changement necessaire dans les composants car ils utilisent les variables CSS
