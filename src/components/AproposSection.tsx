@@ -160,7 +160,7 @@ const AproposSection = () => {
           {/* CTA Block */}
           <div
             ref={ctaRef}
-            className={`mt-16 bg-gradient-to-br from-navy to-navy/90 rounded-2xl p-8 md:p-12 text-white transition-all duration-700 ${
+            className={`mt-16 bg-[#091b2e] rounded-2xl p-8 md:p-12 text-white transition-all duration-700 ${
               ctaVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
