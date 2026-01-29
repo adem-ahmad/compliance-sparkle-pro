@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CalendlyModal from "./CalendlyModal";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
   return (
@@ -53,7 +55,7 @@ const HeroSection = () => {
               variant="outline"
               size="lg"
               className="border-foreground/30 text-foreground hover:bg-foreground/10 font-subheading font-medium text-lg px-8 py-6"
-              onClick={() => document.getElementById("accompagnements")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => navigate("/tarifs")}
             >
               Découvrir les accompagnements
             </Button>
