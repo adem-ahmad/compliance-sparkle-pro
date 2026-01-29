@@ -11,41 +11,42 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Mériem Color Palette - Optimisée */
-    --background: 215 25% 26.6667%; /* Blanc chaud #FDFBF9 */
-    --foreground: 0 0% 100%; /* Noir pur #000000 */
+    /* Mériem Color Palette */
+    --background: 30 100% 98%; /* Crème #FFF8F0 */
+    --foreground: 229 87% 19%; /* Bleu marine #061B5C */
 
-    --card: 0 0% 100%; /* Blanc pur #FFFFFF */
-    --card-foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 229 87% 19%;
 
-    --popover: 0 0% 100%; /* Blanc pur */
-    --popover-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 229 87% 19%;
 
-    --primary: 48 100% 50%; /* Or #FFCB00 */
-    --primary-foreground: 0 0% 0%;
+    --primary: 48 100% 50%; /* Jaune/Or #FFCB00 */
+    --primary-foreground: 229 87% 19%;
 
-    --secondary: 30 20% 95%; /* Crème léger */
-    --secondary-foreground: 0 0% 0%;
+    --secondary: 30 100% 98%; /* Crème */
+    --secondary-foreground: 229 87% 19%;
 
-    --muted: 30 10% 92%;
-    --muted-foreground: 0 0% 0%; /* Noir pur */
+    --muted: 30 30% 90%;
+    --muted-foreground: 229 40% 40%;
 
     --accent: 5 89% 72%; /* Corail #F88379 */
-    --accent-foreground: 0 0% 0%;
+    --accent-foreground: 229 87% 19%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 30 10% 89%; /* Gris chaud clair #E8E4E0 */
-    --input: 30 10% 89%;
+    --border: 229 30% 85%;
+    --input: 229 30% 85%;
     --ring: 48 100% 50%;
 
     --radius: 0.75rem;
 
     /* Custom colors */
     --coral: 5 89% 72%;
+    --navy: 229 87% 19%;
     --gold: 48 100% 50%;
-    --cream: 30 40% 98%;
+    --cream: 30 100% 98%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;

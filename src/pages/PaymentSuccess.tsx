@@ -20,11 +20,11 @@ const PaymentSuccess = () => {
               Paiement réussi !
             </h1>
             
-            <p className="text-lg text-foreground font-body mb-8">
+            <p className="text-lg text-muted-foreground font-body mb-8">
               Merci pour votre confiance. Vous allez recevoir un email de confirmation avec tous les détails de votre commande.
             </p>
             
-            <p className="text-foreground font-body mb-8">
+            <p className="text-muted-foreground font-body mb-8">
               Je vous contacterai très prochainement pour planifier notre premier échange et démarrer votre accompagnement.
             </p>
             

@@ -109,7 +109,7 @@ const AproposSection = () => {
               <p className="text-lg text-foreground font-body leading-relaxed">
                 Depuis plusieurs années, j'accompagne les acteurs de la formation professionnelle en France dans leurs démarches de conformité, de structuration et de développement.
               </p>
-              <p className="text-foreground font-body leading-relaxed">
+              <p className="text-muted-foreground font-body leading-relaxed">
                 Mon parcours m'a permis de développer une connaissance approfondie du cadre réglementaire français, des attentes des organismes certificateurs et des réalités terrain des formateurs et organismes de formation.
               </p>
               <blockquote className="border-l-4 border-primary pl-4 py-2 bg-primary/5 rounded-r">
@@ -117,7 +117,7 @@ const AproposSection = () => {
                   "La conformité ne doit jamais être un frein à l'ambition. Elle doit au contraire devenir un levier de crédibilité, de sérénité et de croissance durable."
                 </p>
               </blockquote>
-              <p className="text-foreground font-body leading-relaxed">
+              <p className="text-muted-foreground font-body leading-relaxed">
                 Mon engagement auprès de vous : clarifier ce qui semble complexe, sécuriser ce qui paraît risqué, et vous permettre d'avancer avec confiance vers vos objectifs.
               </p>
             </div>
@@ -148,7 +148,7 @@ const AproposSection = () => {
                     <h4 className="font-subheading font-semibold text-foreground mb-1">
                       {value.title}
                     </h4>
-                    <p className="text-sm text-foreground font-body">
+                    <p className="text-sm text-muted-foreground font-body">
                       {value.description}
                     </p>
                   </div>

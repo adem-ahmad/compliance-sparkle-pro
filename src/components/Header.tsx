@@ -53,7 +53,7 @@ const Header = () => {
             <span className="text-2xl font-heading font-bold text-foreground">
               Mériem
             </span>
-            <span className="text-sm font-subheading text-foreground hidden sm:inline">
+            <span className="text-sm font-subheading text-muted-foreground hidden sm:inline">
               Consultante Formation
             </span>
           </Link>

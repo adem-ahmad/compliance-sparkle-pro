@@ -68,7 +68,7 @@ const Ebook = () => {
           {/* Back link */}
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-foreground hover:text-primary transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
             Retour à l'accueil
@@ -79,7 +79,7 @@ const Ebook = () => {
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
               Ebooks & Ressources
             </h1>
-            <p className="text-lg text-foreground max-w-2xl mx-auto font-body">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-body">
               Que vous soyez en phase de réflexion ou déjà engagé dans votre projet, ces ressources sont conçues pour vous informer, vous rassurer et vous préparer à prendre les bonnes décisions.
             </p>
           </div>
@@ -130,7 +130,7 @@ const Ebook = () => {
             <h2 className="text-2xl font-heading font-bold text-foreground mb-2">
               Ebooks gratuits
             </h2>
-            <p className="text-foreground font-body mb-8">
+            <p className="text-muted-foreground font-body mb-8">
               Pour découvrir et comprendre les fondamentaux
             </p>
             <div className="grid md:grid-cols-3 gap-6">
@@ -163,7 +163,7 @@ const Ebook = () => {
             <h2 className="text-2xl font-heading font-bold text-foreground mb-2">
               Ebooks premium
             </h2>
-            <p className="text-foreground font-body mb-8">
+            <p className="text-muted-foreground font-body mb-8">
               Pour approfondir et structurer votre projet
             </p>
             <div className="grid md:grid-cols-3 gap-6">
@@ -200,7 +200,7 @@ const Ebook = () => {
               <h3 className="text-xl font-heading font-bold text-foreground mb-4">
                 Garantie satisfait ou remboursé 14 jours
               </h3>
-              <p className="text-foreground font-body max-w-2xl mx-auto">
+              <p className="text-muted-foreground font-body max-w-2xl mx-auto">
                 Accès immédiat après paiement sécurisé. Formats PDF téléchargeables. Si vous n'êtes pas satisfait, nous vous remboursons intégralement sous 14 jours.
               </p>
             </div>
