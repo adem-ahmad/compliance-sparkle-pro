@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import CalendlyModal from "./CalendlyModal";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import Sparkle from "./ui/sparkle";
 
 const AproposSection = () => {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
@@ -77,6 +78,7 @@ const AproposSection = () => {
           >
             {/* Image placeholder */}
             <div className="relative">
+              <Sparkle className="absolute top-4 right-4 w-8 h-8 fill-yellow-400" />
               <div className="bg-[#091b2e] rounded-2xl p-8 text-white">
                 <div className="w-32 h-32 bg-primary/20 rounded-full mx-auto mb-6 flex items-center justify-center">
                   <span className="text-5xl font-heading font-bold text-primary">M</span>

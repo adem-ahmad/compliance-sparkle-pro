@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CalendlyModal from "./CalendlyModal";
+import { Sparkle, Flower, Splash } from '../components/ui';
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -11,7 +12,8 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center pt-20 overflow-hidden"
+      className="relative min-h-screen flex items-center pt-20"
+      style={{ overflow: 'visible' }} 
     >
       {/* Background */}
       <div className="absolute inset-0 bg-background" />
@@ -19,6 +21,19 @@ const HeroSection = () => {
       {/* Decorative elements */}
       <div className="absolute top-20 right-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
       <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
+      <Sparkle fixed 
+        style={{ bottom: '20vh', left: '15vw' }}
+        mobileStyle={{ bottom: '20vh', left: '3vw' }}
+        size={50} />
+      <Sparkle fixed style={{ top: '25vh', right: '10vw' }}
+        mobileStyle={{ bottom: '20vh', right: '5vw' }}
+        size={75} />
+        
+      <Sparkle style={{ bottom: '0vh', right: '25vw' }} size={50} />
+      <Flower style={{ top: '15vh', left: '25vw' }} 
+        mobileStyle={{ top: '12vh', left: '5vw' }}
+        size={50} />
+      {/*<Splash style={{ top: '20vh', left: '30vw' }} size={100} />*/}
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
@@ -77,21 +92,6 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Wave decoration */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg
-          viewBox="0 0 1440 120"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full"
-        >
-          <path
-            d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
-            fill="hsl(var(--background))"
-          />
-        </svg>
       </div>
 
       <CalendlyModal open={isCalendlyOpen} onOpenChange={setIsCalendlyOpen} />

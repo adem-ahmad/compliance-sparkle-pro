@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import CalendlyModal from "./CalendlyModal";
 import useScrollAnimation from "@/hooks/useScrollAnimation";
+import Sparkle from "./ui/sparkle";
 
 const TarifsSection = () => {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
@@ -82,7 +83,8 @@ const TarifsSection = () => {
                     Le plus demandé
                   </span>
                 )}
-                <CardHeader className="text-center pb-4">
+                <CardHeader className="text-center pb-4 relative">
+                  <Sparkle className="absolute top-2 right-2 w-6 h-6 fill-yellow-400" />
                   <CardTitle className="text-xl font-heading">{pack.name}</CardTitle>
                   <div className="mt-4">
                     <span className="text-4xl font-heading font-bold text-primary">
